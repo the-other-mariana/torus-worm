@@ -51,20 +51,19 @@ quadArray = OM.MPointArray()
 quadArray.setLength(4)
 print(len(verts))
 
-
 for j in range(tubes):
     exception = 0
     for i in range(sections):
         if i == sections - 1:
             exception = sections
-        quadArray.set(verts[(i) + (sections)* j], 0)
-        quadArray.set(verts[(i + 1) - exception + (sections)* j], 1)
 
         if j == tubes - 1:
-            quadArray.set(verts[((i + sections + 1) - exception + (sections)* j) % len(verts)], 2)
-            quadArray.set(verts[((i + sections) + (sections)* j) % len(verts)], 3)
+            quadArray.set(verts[((i + sections + 1) - exception + (sections)* j) % len(verts)], 1)
+            quadArray.set(verts[((i + sections) + (sections)* j) % len(verts)], 0)
         else:
-            quadArray.set(verts[(i + sections + 1) - exception + (sections)* j], 2)
-            quadArray.set(verts[(i + sections) + (sections)* j], 3)
+            quadArray.set(verts[(i + sections + 1) - exception + (sections)* j], 1)
+            quadArray.set(verts[(i + sections) + (sections)* j], 0)
+        quadArray.set(verts[(i) + (sections)* j], 3)
+        quadArray.set(verts[(i + 1) - exception + (sections)* j], 2)
 
         mesh.addPolygon(quadArray, mergeVerts, pointTolerance)
