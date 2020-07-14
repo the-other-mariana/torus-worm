@@ -12,14 +12,18 @@ mesh = OM.MFnMesh()
 mergeVerts = True
 pointTolerance = 0.001
 
-tubes = 10
-sections = 8
+tubes = 60
+sections = 20
 inner_radius = 3
 distance = 5
+spikey = True
 PI = 3.1416
 z = 0
 step_outer_angle = 360.0 / tubes
 step_inner_angle = 360.0 / sections
+spikes = 2
+spikes_height = 0.5
+radius_modif = 1
 
 for j in range(tubes):
     outer_rads = (step_outer_angle * PI / 180.0)
@@ -32,8 +36,10 @@ for j in range(tubes):
         inner_x = distance + inner_radius * math.cos(i * inner_rads - (inner_rads / 2.0))
         inner_y = inner_radius * math.sin(i * inner_rads - (inner_rads / 2.0))
 
-        outer_distance = inner_x
-        y = inner_y
+        if spikey == True:
+            radius_modif = abs(math.sin(spikes * j * outer_rads - (outer_rads / 2.0))) + spikes_height
+        outer_distance = inner_x * radius_modif
+        y = radius_modif * inner_y
         x = outer_distance * math.sin(j * outer_rads - (outer_rads / 2.0))
         z = outer_distance * math.cos(j * outer_rads - (outer_rads / 2.0))
 
