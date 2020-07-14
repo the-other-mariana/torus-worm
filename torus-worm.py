@@ -17,13 +17,16 @@ sections = 20
 inner_radius = 3
 distance = 5
 spikey = True
+flower = False
 PI = 3.1416
 z = 0
 step_outer_angle = 360.0 / tubes
 step_inner_angle = 360.0 / sections
-spikes = 2
+spikes = 3
 spikes_height = 0.5
 radius_modif = 1
+spikey_modif = 1
+flower_modif = 1
 
 for j in range(tubes):
     outer_rads = (step_outer_angle * PI / 180.0)
@@ -32,13 +35,18 @@ for j in range(tubes):
     y = 0.0
     z = 0.0
     for i in range(sections):
+        if spikey != False or flower != False:
+            radius_modif = abs(spikes_height * math.sin(spikes * j * outer_rads - (outer_rads / 2.0))) + spikes_height
+        if spikey == True:
+            spikey_modif = radius_modif
+        elif flower == True:
+            flower_modif = radius_modif
         inner_rads = (step_inner_angle * PI / 180.0)
-        inner_x = distance + inner_radius * math.cos(i * inner_rads - (inner_rads / 2.0))
+        inner_x = distance + spikey_modif * inner_radius * math.cos(i * inner_rads - (inner_rads / 2.0))
         inner_y = inner_radius * math.sin(i * inner_rads - (inner_rads / 2.0))
 
-        if spikey == True:
-            radius_modif = abs(math.sin(spikes * j * outer_rads - (outer_rads / 2.0))) + spikes_height
-        outer_distance = inner_x * radius_modif
+
+        outer_distance = inner_x * flower_modif
         y = radius_modif * inner_y
         x = outer_distance * math.sin(j * outer_rads - (outer_rads / 2.0))
         z = outer_distance * math.cos(j * outer_rads - (outer_rads / 2.0))
