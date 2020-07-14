@@ -22,4 +22,4 @@ You can customize the variables commented as parameters inside the script to cha
 
 Personally, I like more how the flower option looks like, so I turned the `flower` parameters to `True` and saved the object created which looked like the following.<br />
 
-![alt text](https://github.com/the-other-mariana/torus-worm/blob/master/results/flower-render?raw=true) <br />
+![alt text](https://github.com/the-other-mariana/torus-worm/blob/master/results/flower-render.png?raw=true) <br />
