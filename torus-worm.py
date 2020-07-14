@@ -1,33 +1,38 @@
 #File:      torus-worm.py
 #Author:    Mariana Avalos
 #Date:      11/07/2020
-#Description: Python code that makes an animated torus
+#Description: Python code that makes a torus with flower or worm-like figure
 
 import maya.cmds as c
 import math as math
 import maya.OpenMaya as OM
 
-verts = []
-mesh = OM.MFnMesh()
-mergeVerts = True
-pointTolerance = 0.001
 
+# modifiable parameters
 tubes = 60
 sections = 20
 inner_radius = 3
 distance = 5
-spikey = True
-flower = False
+spikey = False
+flower = True
+n_modifs = 6
+strength_modif = 0.5
+
+
+# constants, not for modification
 PI = 3.1416
 z = 0
 step_outer_angle = 360.0 / tubes
 step_inner_angle = 360.0 / sections
-spikes = 3
-spikes_height = 0.5
+verts = []
+mesh = OM.MFnMesh()
+mergeVerts = True
+pointTolerance = 0.001
 radius_modif = 1
 spikey_modif = 1
 flower_modif = 1
 
+# creating the points
 for j in range(tubes):
     outer_rads = (step_outer_angle * PI / 180.0)
     outer_distance = 0.0
@@ -36,7 +41,7 @@ for j in range(tubes):
     z = 0.0
     for i in range(sections):
         if spikey != False or flower != False:
-            radius_modif = abs(spikes_height * math.sin(spikes * j * outer_rads - (outer_rads / 2.0))) + spikes_height
+            radius_modif = abs(strength_modif * math.sin((n_modifs/2.0) * j * outer_rads - (outer_rads / 2.0))) + strength_modif
         if spikey == True:
             spikey_modif = radius_modif
         elif flower == True:
@@ -61,6 +66,7 @@ for j in range(tubes):
         temp = OM.MPoint(x, y, z)
         verts.append(temp)
 
+# joining the points through quads
 quadArray = OM.MPointArray()
 quadArray.setLength(4)
 print(len(verts))
@@ -71,13 +77,17 @@ for j in range(tubes):
         if i == sections - 1:
             exception = sections
 
+        # counter clock wise faces
         if j == tubes - 1:
-            quadArray.set(verts[((i + sections + 1) - exception + (sections)* j) % len(verts)], 1)
             quadArray.set(verts[((i + sections) + (sections)* j) % len(verts)], 0)
+            quadArray.set(verts[((i + sections + 1) - exception + (sections)* j) % len(verts)], 1)
+
         else:
-            quadArray.set(verts[(i + sections + 1) - exception + (sections)* j], 1)
             quadArray.set(verts[(i + sections) + (sections)* j], 0)
-        quadArray.set(verts[(i) + (sections)* j], 3)
+            quadArray.set(verts[(i + sections + 1) - exception + (sections)* j], 1)
+
+
         quadArray.set(verts[(i + 1) - exception + (sections)* j], 2)
+        quadArray.set(verts[(i) + (sections)* j], 3)
 
         mesh.addPolygon(quadArray, mergeVerts, pointTolerance)
