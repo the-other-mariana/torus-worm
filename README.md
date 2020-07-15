@@ -1,6 +1,6 @@
 # Worm/flower-like Torus
 
-This is a simple script that creates a sine-based torus geometric figure mesh in Autodesk Maya 
+This is a simple script that creates a sine-based torus geometric figure mesh in Autodesk Maya using a bit of math.
 
 ## Specifications
 
@@ -8,7 +8,7 @@ Maya version: `Autodesk Maya 2017`
 
 ## Usage
 
-1. Download any `torus-worm.py` file and store it in your computer.<br />
+1. Download `torus-worm.py` file and store it in your computer.<br />
 2. Open Autodesk Maya.<br />
 3. Go to `Windows > General Editors > Script Editor`.<br />
 4. Click on the `Python` label.<br />
