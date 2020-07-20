@@ -16,7 +16,7 @@ Maya version: `Autodesk Maya 2017`
 6. Type `Ctrl + A` to select the whole text.<br />
 7. Click on `Run` button, or `Ctrl + Enter` to execute the script.<br />
 
-You can customize the variables commented as parameters inside the script to change between worm or flower, its height, its length, etc. <br />
+You can customize the variables commented as parameters inside the script to change between worm or flower, its height, its length, etc. By setting `flower` and `worm` variables to `False`, you can achieve a classic torus mesh. <br />
 
 ## Output
 
